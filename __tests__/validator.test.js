@@ -65,34 +65,57 @@ describe('validator module performs basic validation of', () => {
     expect(validator.isFunction(arr)).toBeFalsy();
     expect(validator.isFunction(num)).toBeFalsy();
     expect(validator.isFunction(str)).toBeFalsy(); 
-    expect(validator.sFunction(bool)).toBeFalsy();
+    expect(validator.isFunction(bool)).toBeFalsy();
   });
 
 });
 
 describe('validator module performs complex validations', () => {
 
+  const obj = {
+    a: {g: {e: 13}},
+    b: 'blah',
+    c: 3,
+  };
+
+  const arr = ['yellow', 'blue', 'green'];
+  const arrFromApprovedList1 = ['yes', 'no', 'Yes', 'No'];
+  const arrFromApprovedList2 = ['yes', 'no', 'yes', 'no'];
+  const approvedList = ['yes', 'no'];
+
   it('validates the presence of required object properties at any level', () => {
     // i.e. does person.hair.color exist and have a good value, not just person.hair
-    expect(true).toBeFalsy();
+    expect(validator.isObjectHasProperty(obj, 'b')).toBeTruthy();
+    expect(validator.isObjectHasProperty(obj, 'g')).toBeTruthy();
+    expect(validator.isObjectHasProperty(obj, 'e')).toBeTruthy();
+    expect(validator.isObjectHasProperty(obj, 'blah')).toBeFalsy();
   });
 
   it('validates the proper types of object properties', () => {
     // i.e. person.name must be a string, etc.
-    expect(true).toBeFalsy();
+    expect(validator.isObjectPropertyCorrect (obj, 'a', 'object')).toBeTruthy();
+    expect(validator.isObjectPropertyCorrect (obj, 'b', 'string' )).toBeTruthy();
+    expect(validator.isObjectPropertyCorrect (obj, 'e', 'number')).toBeTruthy();
+    expect(validator.isObjectPropertyCorrect (obj, 'b', 'number')).toBeFalsy();
+    expect(validator.isObjectPropertyCorrect (obj, 'blah', 'number')).toBeFalsy();
   });
 
   it('validates the types of values contained in an array', () => {
     // i.e. an array of all strings or numbers
-    expect(true).toBeFalsy();
+    expect(validator.isArrayValueHasCorrectType(arr, 'string' )).toBeTruthy();
+    expect(validator.isArrayValueHasCorrectType(arr, 'number')).toBeFalsy();
+    expect(validator.isArrayValueHasCorrectType(arr, 'object')).toBeFalsy();
+    expect(validator.isArrayValueHasCorrectType(obj, 'string')).toBeFalsy();
   });
 
   it('validates a value array against an approved list', () => {
     // i.e. a string might only be allowed to be "yes" or "no"
-    expect(true).toBeFalsy();
+    expect(validator.isArrayValueHasApprovedType(arrFromApprovedList2, approvedList)).toBeTruthy();
+    expect(validator.isArrayValueHasApprovedType(arrFromApprovedList1, approvedList)).toBeFalsy();
+    expect(validator.isArrayValueHasApprovedType(arrFromApprovedList1, approvedList)).toBeFalsy();
   });
 
-  // TODO: Cover so, so many more cases
+  
 
 });
 
