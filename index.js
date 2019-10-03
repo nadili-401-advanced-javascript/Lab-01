@@ -81,7 +81,7 @@ print(validator.isObjectPropertyCorrect (obj1, 'b', 'object'));
 
 // Validates the types of values contained in an array
 console.log('Validate if values contained in an array: ' + '['+arr1+']' + ' are strings');
-print (validator.isArrayValueHasCorrectType(arr1, 'string'));
+print (validator.isArrayValueHasCorrectType(arr, 'string'));
 
 console.log('Validate if values contained in an array: ' + '['+arr1+']' + ' are numbers');
 print (validator.isArrayValueHasCorrectType(arr, 'numbers'));

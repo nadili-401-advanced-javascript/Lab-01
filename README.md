@@ -30,8 +30,13 @@ Returns true/false to validate a value of an array against an approved list
 ### Setup
 #### Running the app
 * `npm start`
+* Endpoint: `/docs`
+  * Returns a JSdocs
   
 #### Tests
 * Unit Tests: 'npm test'
 * Lint Tests: 'npm run lint'
 
+
+#### UML
+![ UML for the application and response to events](/assets/lab-01-uml.jpg)
